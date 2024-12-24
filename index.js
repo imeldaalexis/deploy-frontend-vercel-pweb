@@ -9,8 +9,7 @@ const app = express();
 const messageRoutes = require('./routes/messageRoutes');
 const uploadRoutes = require("./routes/uploadRoutes");
 
-// const PORT = process.env.PORT || 3003;
-const PORT = 3003;
+const PORT = process.env.PORT || 3003;
 console.log(PORT);
 
 
@@ -48,12 +47,12 @@ const db = mongoose.connection;
 //   }
 // })
 
-app.get('/', async(req, res) => {
-  return res.status(200).send("Successful");
-})
-// app.get("/", async(req, res) => {
-//   res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
-// });
+// app.get('/', async(req, res) => {
+//   return res.status(200).send("Successful");
+// })
+app.get("/", async(req, res) => {
+  res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

@@ -4,7 +4,7 @@ const myContact = "6285174388804@c.us";
 let debounceTimeout;
 
 window.onload = () => {
-  fetch("http://localhost:3003/api/messages")
+  fetch("https://deploy-frontend-vercel-pweb.vercel.app/api/messages")
     .then((response) => response.json())
     .then((messages) => {
       // Extract contacts from messages
@@ -279,7 +279,7 @@ window.onload = () => {
         replyBox.id = "reply-box";
 
         replyBox.innerHTML = `
-          <form id="messageForm" action="http://localhost:3003/api/post" method="post">
+          <form id="messageForm" action="https://deploy-frontend-vercel-pweb.vercel.app/api/post" method="post">
             <div class="input-group">
               <input type="text" name="body" class="form-control" placeholder="Type a message..." required>
               <input type="hidden" name="currentContact" value="${currentContact}">

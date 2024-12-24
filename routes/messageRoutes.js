@@ -170,7 +170,7 @@ router.post('/post', async (req, res) => {
       console.log("Message saved:", newMessage);
   
       // Redirect upon successful save
-      res.redirect("http://localhost:3003/");
+      res.redirect("https://deploy-frontend-vercel-pweb.vercel.app/");
     } catch (error) {
       console.error("Error saving message:", error);
       res.status(500).json({ error: "Internal server error", details: error.message });
