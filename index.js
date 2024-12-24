@@ -50,7 +50,7 @@ const db = mongoose.connection;
 //   return res.status(200).send("Successful");
 // })
 app.get("/", async(req, res) => {
-  res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
+  res.sendFile(path.join(__dirname, 'Frontend', 'index_coba.html'));
 });
 
 app.listen(PORT, () => {
