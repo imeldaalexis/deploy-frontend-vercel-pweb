@@ -19,15 +19,6 @@ app.use(express.static(path.join(__dirname, 'FrontEnd')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', messageRoutes);
 
-// Serve static files and set the correct MIME type for .js files
-app.use(express.static(path.join(__dirname, 'FrontEnd'), {
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript;charset=utf-8');
-    }
-  }
-}));
-
 const mongoURI = "mongodb://imeldaalexisjbaru:1Gh8Y4DxDNf8GB47@cluster0-shard-00-00.g70d8.mongodb.net:27017,cluster0-shard-00-01.g70d8.mongodb.net:27017,cluster0-shard-00-02.g70d8.mongodb.net:27017/chatAppRevisi?replicaSet=atlas-9d8ugm-shard-0&ssl=true&authSource=admin"
 console.log(mongoURI);
 
@@ -62,7 +53,7 @@ const db = mongoose.connection;
 
 
 app.get("/", async(req, res) => {
-  res.sendFile(path.join(__dirname, 'Frontend', 'index_coba.html'));
+  res.sendFile(path.join(__dirname, 'index_coba.html'));
 });
 
 app.listen(PORT, () => {
