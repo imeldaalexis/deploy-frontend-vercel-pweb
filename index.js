@@ -50,7 +50,9 @@ const db = mongoose.connection;
 //   return res.status(200).send("Successful");
 // })
 
-
+app.get("/styles.css", async (req, res) => {
+  res.sendFile(path.join(__dirname, 'styles.css'));
+});
 
 app.get("/", async(req, res) => {
   res.sendFile(path.join(__dirname, 'index_coba.html'));
