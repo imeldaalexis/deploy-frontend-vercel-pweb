@@ -1,5 +1,3 @@
-
-
 body{
     background-color: #383737;
     -webkit-font-smoothing: antialiased;
@@ -22,17 +20,14 @@ body{
 
     .col-md-4 {
         background-color: #F7C3E8;
-        max-height: 750px; /* Fixed height for the left panel */
+        max-height: 750px;
         overflow-y: auto; /* Enable vertical scrolling */
-        border-right: 1px solid #ccc; /* Optional: Visual separator */
+        border-right: 1px solid #ccc;
     }
-    
 }
-
 
 #bottom-row {
     margin-top: 500px; /* Push the row to the bottom */
-
 }
 
 #reply-box {
@@ -40,7 +35,7 @@ body{
     padding: 10px;
     background-color: #f9f9f9;
     height: 70px;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    box-sizing: border-box;
 }
 
 .chats-logo {
@@ -61,10 +56,9 @@ body{
 }
 
 .settings-tray{
-    
     background: #F7C3E8;
     padding: 10px 15px;
-    font-family: Helvetica; /* Ensure this font is applied */
+    font-family: Helvetica;
     font-weight: bold;
     
     i {
@@ -77,9 +71,9 @@ body{
 }
 
 .settings-tray .text {
-    color: #dc6e8d; /* Adjust the text color */
-    font-family: Helvetica; /* Ensure this font is applied */
-    font-size: bold; /* Set a specific font size */
+    color: #dc6e8d;
+    font-family: Helvetica;
+    font-size: bold;
 }
 
 .settings-tray i:hover {
@@ -121,10 +115,6 @@ body{
     align-items: center; 
     background-color: #F7C3E8;
     transition: 0.4s; 
-
-    /* &--pink {
-
-    } */
 
     .text{
         margin-left: 12px;
@@ -177,11 +167,11 @@ body{
 
 .quoted-contact {
     font-weight: bold;
-    color: #df4772; /* Contact name color */
+    color: #df4772;
 }
 
 .quoted-message {
-    color: #333; /* Message text color */
+    color: #333;
     margin-top: 5px;
 }
 
@@ -192,10 +182,10 @@ body{
 
 .chat-time {
     display: block;
-    font-size: 0.75em; /* Smaller font for the timestamp */
-    color: #b30033; /* Lighter color for contrast */
-    margin-top: 5px; /* Space between message and time */
-    text-align: right; /* Align timestamp to the right */
+    font-size: 0.75em;
+    color: #b30033;
+    margin-top: 5px;
+    text-align: right;
 }
 
 .send-button{
@@ -213,8 +203,8 @@ body{
 .chat-panel-container {
     display: flex;
     flex-direction: column;
-    height: 750px; /* Match the fixed height of the parent */
-    max-height: 750px; /* Ensure it doesn't grow beyond this */
+    height: 750px;
+    max-height: 750px;
 }
 
 .chat-panel {
@@ -223,20 +213,17 @@ body{
 }
 
 #reply-box {
-    background-color: #f8f9fa; /* Optional: Different background */
+    background-color: #f8f9fa;
     padding: 10px;
-    border-top: 1px solid #ddd; /* Divider line */
-    box-sizing: border-box; /* Prevent padding from expanding height */
+    border-top: 1px solid #ddd;
+    box-sizing: border-box;
 }
 
 .user-banner{
-    /* position: absolute;
-    width: 100%;
-    z-index: 10; */
     background: #F7C3E8;
     padding: 10px 15px;
     margin: 0;
-    font-family: Helvetica; /* Ensure this font is applied */
+    font-family: Helvetica;
     font-weight: bold;
     color:  #ff195a;
     
@@ -285,4 +272,116 @@ body{
     opacity: 80%;
 }
 
+#user-number-info {
+    color: #dc6e8d;
+}
 
+.btn-pink {
+    background-color: #F4B4CC;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Helvetica;
+}
+
+.btn-pink:hover {
+    background-color: #F29F9B;
+}
+
+.file-preview {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-width: 200px;
+    text-align: center;
+}
+
+.file-preview img {
+    max-width: 100%;
+    max-height: 100px;
+}
+
+#file-upload {
+    display: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label[for="file-upload"] {
+    background-color: #F4B4CC;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: Helvetica;
+    display: inline-block;
+}
+
+label[for="file-upload"]:hover {
+    background-color: #F29F9B;
+}
+
+.file-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#filePreview {
+    margin-top: 10px;
+}
+
+#sendFileButton {
+    background-color: #F393AF;
+    color: white;
+    font-family: Helvetica;
+    border-radius: 3px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.messageImage {
+    width: 100%; /* Adjust width as needed */
+    max-width: 200px; /* Limit the maximum width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for the image */
+    margin-top: 10px; /* Spacing between text and image */
+}

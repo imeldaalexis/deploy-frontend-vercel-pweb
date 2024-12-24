@@ -4,7 +4,7 @@ const myContact = "6285174388804@c.us";
 let debounceTimeout;
 
 window.onload = () => {
-  fetch("https://vercel-deploy-pweb.vercel.app/api/messages")
+  fetch("http://localhost:3003/api/messages")
     .then((response) => response.json())
     .then((messages) => {
       // Extract contacts from messages
@@ -108,24 +108,8 @@ window.onload = () => {
       function displayUserMessages(contact, messages, searchTerm = "") {
         const userMessages = messages.filter((message) => {
           if (contact.includes('@g.us')) {
-            // For group messages
-            console.log("Message.id:", message.id)
-            console.log("Group Contact:", contact);
-            console.log("Message From:", message.from);
-            console.log("Message To:", message.to);
-            console.log("Should Include Group:", message.from === contact || message.to === contact);
-          
             return (message.from === contact || message.to === contact);
           } else {
-            // For individual contacts
-            console.log("Message.id:", message.id)
-            console.log("Individual Contact:", contact);
-            console.log("Message From:", message.from);
-            console.log("Message To:", message.to);
-            console.log("Should Include Individual:", (message.from === contact || message.to === contact) &&
-                                                      !message.from.includes('@g.us') &&
-                                                      !message.to.includes('@g.us'));
-          
             return (message.from === contact || message.to === contact) &&
                    !message.from.includes('@g.us') &&
                    !message.to.includes('@g.us');
@@ -182,27 +166,26 @@ window.onload = () => {
         let lastDate = null;
         // Loop through the user messages and display them
         userMessages.forEach((message) => {
+          console.log("Message object:", message);
+          console.log("hasMedia property:", message.hasMedia);
           const messageRow = document.createElement("div");
           messageRow.className = "row g-0";
 
           // if (message._data && message._data.t) {
-            const timestamp = message._data.t;
-            const date = new Date(timestamp * 1000);
-            const messageDate = formatDate(date);
-          // } else {
-          //   console.warn("Message timestamp missing:", message);
-          // }
-      
+          const timestamp = message._data.t;
+          const date = new Date(timestamp * 1000);
+          const messageDate = formatDate(date);
+
           const messageCol = document.createElement("div");
           const chatBubble = document.createElement("div");
           
           if (lastDate !== messageDate) {
              const dateDiv = createDateDiv(messageDate);
              chatPanel.appendChild(dateDiv);
-             lastDate = messageDate; // Update the last date
+             lastDate = messageDate; // Update the last dat
           }
 
-          // Determine if the message is from the user or the contact
+          // Setting posisi doang, gak ada inner html nya
           if (message.id && message.id.fromMe) {
             messageCol.className = "col-md-3 offset-md-9";
             chatBubble.className = "chat-bubble chat-bubble--pink";
@@ -256,11 +239,29 @@ window.onload = () => {
           const messageBody = highlightTextUser(message.body, searchTerm);
           const messageTime = formatTime(message.timestamp);
           
-          // Insert the formatted message and timestamp into the chat bubble
-          chatBubble.innerHTML = `${messageBody} <br><span class="chat-time">${messageTime}</span>`;
-          messageCol.appendChild(chatBubble);
-          messageRow.appendChild(messageCol);
-          chatPanel.appendChild(messageRow);
+          
+          if(message.hasMedia){
+            //make the source using converted base64 
+            let base64Data = message.body;
+            let mimeType = getMimeType(base64Data);
+
+            let dataUri = `data:${mimeType};base64,${base64Data}`;
+            console.log(dataUri);
+
+            chatBubble.innerHTML = `
+            <img src="${dataUri}" alt="Media" style="max-width: 100%; height: auto;"><br>
+            <span class="chat-time">${messageTime}</span>`;
+            messageCol.appendChild(chatBubble);
+            messageRow.appendChild(messageCol);
+            chatPanel.appendChild(messageRow);
+          }
+          else{
+            chatBubble.innerHTML = `${messageBody} <br><span class="chat-time">${messageTime}</span>`;
+              // Insert the formatted message and timestamp into the chat bubble
+            messageCol.appendChild(chatBubble);
+            messageRow.appendChild(messageCol);
+            chatPanel.appendChild(messageRow);
+          }
         });
       
         // Append the chat panel to the user data banner
@@ -277,19 +278,43 @@ window.onload = () => {
         const replyBox = document.createElement("div");
         replyBox.id = "reply-box";
 
-        replyBox.innerHTML = 
-          `<form action="https://vercel-deploy-pweb.vercel.app/api/post" method="post">
+        replyBox.innerHTML = `
+          <form id="messageForm" action="http://localhost:3003/api/post" method="post">
             <div class="input-group">
               <input type="text" name="body" class="form-control" placeholder="Type a message..." required>
               <input type="hidden" name="currentContact" value="${currentContact}">
               <input type="hidden" name="myContact" value="${myContact}">
+              <input type="hidden" id="base64-file" name="fileBase64">
               <button class="send-button btn btn-primary" type="submit">Send</button>
+              <label for="file-upload" class="btn btn-pink">Choose file</label>
+              <input type="file" id="file-upload" class="d-none" accept="image/png, image/jpeg, image/jpg">
             </div>
           </form>
         `;
 
         // Append the reply box to the chat panel container
-        document.querySelector(".chat-panel-container").appendChild(replyBox)
+        document.querySelector(".chat-panel-container").appendChild(replyBox);  
+        
+        // Add event listener to handle file selection and Base64 conversion
+        const fileUploadInput = document.getElementById("file-upload");
+        const base64Input = document.getElementById("base64-file");
+
+        fileUploadInput.addEventListener("change", async (event) => {
+          const file = event.target.files[0]; // Get the selected file
+          if (file) {
+            try {
+              const base64Data = await convertToBase64(file);
+              base64Input.value = base64Data; // Set Base64 string to the hidden input
+              alert("File successfully converted to Base64!");
+            } catch (error) {
+              console.error("Error converting file to Base64:", error);
+              alert("Failed to convert the file. Please try again.");
+            }
+          } else {
+            alert("No file selected.");
+          }
+        });
+
         document.querySelector(".search-box-user").addEventListener("keyup", (e) => {
           clearTimeout(debounceTimeout); // Clear any existing timeout
           const searchTerm = e.target.value.toLowerCase();
@@ -416,8 +441,32 @@ window.onload = () => {
     .catch((error) => console.error("Error:", error));
 };
 
-// Fix the missing closing bracket and event listener for the form
-document.querySelector('form').addEventListener('submit', function(event) {
-  console.log("Form submitted");
-  event.preventDefault();  // Prevent default form submission for testing purposes
-});
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]); // Remove the Base64 prefix
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function getMimeType(base64String) {
+  // Get the first few characters of the base64 string
+  if (base64String.startsWith('/9j/')) {
+      return 'image/jpeg';
+  } else if (base64String.startsWith('iVBORw0K')) {
+      return 'image/png';
+  } else if (base64String.startsWith('R0lGOD') || base64String.startsWith('GIF8')) {
+      return 'image/gif';
+  } else if (base64String.startsWith('Qk')) {
+      return 'image/bmp';
+  } else {
+      return null; // Unknown format
+  }
+}
+
+// // Fix the missing closing bracket and event listener for the form
+// document.querySelector('form').addEventListener('submit', function(event) {
+//   console.log("Form submitted");
+//   event.preventDefault();  // Prevent default form submission for testing purposes
+// });
