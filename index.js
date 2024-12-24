@@ -1,4 +1,3 @@
-
 //testo
 const express = require('express');
 const mongoose = require('mongoose');
@@ -47,12 +46,12 @@ const db = mongoose.connection;
 //   }
 // })
 
-// app.get('/', async(req, res) => {
-//   return res.status(200).send("Successful");
-// })
-app.get("/", async(req, res) => {
-  res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
-});
+app.get('/', async(req, res) => {
+  return res.status(200).send("Successful");
+})
+// app.get("/", async(req, res) => {
+//   res.sendFile(path.join(__dirname, 'FrontEnd', 'index_coba.html'));
+// });
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
