@@ -54,6 +54,10 @@ app.get("/styles.css", async (req, res) => {
   res.sendFile(path.join(__dirname, 'styles.css'));
 });
 
+app.get("/script_coba.js", async (req, res) => {
+  res.sendFile(path.join(__dirname, 'script_coba.js'));
+});
+
 app.get("/", async(req, res) => {
   res.sendFile(path.join(__dirname, 'index_coba.html'));
 });
