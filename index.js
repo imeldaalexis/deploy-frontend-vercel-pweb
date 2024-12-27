@@ -30,6 +30,24 @@ mongoose.connect(mongoURI)
 
 // let gfs
 const db = mongoose.connection;
+
+app.get("/styles.css", async (req, res) => {
+  res.sendFile(path.join(__dirname, 'styles.css'));
+});
+
+app.get("/script_coba.js", async (req, res) => {
+  res.sendFile(path.join(__dirname, 'script_coba.js'));
+});
+
+app.get("/", async(req, res) => {
+  res.sendFile(path.join(__dirname, 'index_coba.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
 // db.once('open', () => { //maybe add chatAppRevisi here?
 //   console.log('Connected to MongoDB database chatAppRevisi');
 //   gfs = Grid(db.db, mongoose.mongo);
@@ -49,19 +67,3 @@ const db = mongoose.connection;
 // app.get('/', async(req, res) => {
 //   return res.status(200).send("Successful");
 // })
-
-app.get("/styles.css", async (req, res) => {
-  res.sendFile(path.join(__dirname, 'styles.css'));
-});
-
-app.get("/script_coba.js", async (req, res) => {
-  res.sendFile(path.join(__dirname, 'script_coba.js'));
-});
-
-app.get("/", async(req, res) => {
-  res.sendFile(path.join(__dirname, 'index_coba.html'));
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});

@@ -305,13 +305,13 @@ window.onload = () => {
             try {
               const base64Data = await convertToBase64(file);
               base64Input.value = base64Data; // Set Base64 string to the hidden input
-              alert("File successfully converted to Base64!");
+              // alert("File successfully converted to Base64!");
             } catch (error) {
               console.error("Error converting file to Base64:", error);
-              alert("Failed to convert the file. Please try again.");
+              // alert("Failed to convert the file. Please try again.");
             }
           } else {
-            alert("No file selected.");
+            // alert("No file selected.");
           }
         });
 
@@ -436,7 +436,7 @@ window.onload = () => {
     }
     
 
-      alert("Data loaded successfully");
+      // alert("Data loaded successfully");
     })
     .catch((error) => console.error("Error:", error));
 };
