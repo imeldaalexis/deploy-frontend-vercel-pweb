@@ -1,6 +1,6 @@
 ### Langkah-Langkah Deployment Web Vercel Menggunakan Postman
 
-1. Hubungkan frontend dan backend message logger web pada Vercel dengan alamat link ```https://deploy-frontend-vercel-pweb.vercel.app/```.
+1. Hubungkan frontend dan backend message logger web pada Vercel dengan alamat link ```https://deploy-frontend-vercel-pweb.vercel.app/``` dan GitHub ```https://github.com/imeldaalexis/deploy-frontend-vercel-pweb``` pada kode backend.
 
 2. Setelah mengintegrasi alamat Vercel, deploy ke Postman untuk memastikan bahwa data yang masuk pada logger sudah tercatat dengan benar.
 
